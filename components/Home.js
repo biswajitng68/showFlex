@@ -1,18 +1,19 @@
 
 import React, { useEffect, useState } from "react";
-import { Text, View, Image, StyleSheet, ScrollView } from 'react-native';
+import { Text, View, Image, StyleSheet, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 
 
-const Home = () => {
+const Home = ({navigation}) => {
     // https://image.tmdb.org/t/p/original/fiVW06jE7z9YnO4trhaMEdclSiC.jpg
     useEffect(() => {
         trendinnow();
-        curr();
         topratedmovie();
+        curr();
     }, []);
     const [movie, setmovie] = useState([]);
     const [topmovie, settopmovie] = useState([]);
     const [toprate, settoprated] = useState([]);
+    
 
 
     const trendinnow = async (e) => {
@@ -27,6 +28,7 @@ const Home = () => {
 
 
     }
+    //  https://image.tmdb.org/t/p/original/cHRitjn1hJgz00jOkF7PRGkn9kY.jpg
 
     const topratedmovie = async (e) => {
         // e.preventDefault();
@@ -51,14 +53,14 @@ const Home = () => {
 
 
 
-// upcoming regional india
+    // upcoming regional india
     const curr = async (e) => {
         // e.preventDefault();
 
         const response = await fetch('https://api.themoviedb.org/3/movie/upcoming?region=in', options);
         const json = await response.json()
 
-        console.log(json.results);
+        //console.log(json.results);
 
         settopmovie(json.results);
 
@@ -67,86 +69,90 @@ const Home = () => {
 
 
 
-    //const imageUrl = 'https://image.tmdb.org/t/p/original/fiVW06jE7z9YnO4trhaMEdclSiC.jpg';
-    const imageUrl = "https://image.tmdb.org/t/p/original/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg";
-    const getmovielist = (arr) => {
-        let row = [];
-        if (arr) {
-            for (let i = 0; i < arr.length; i++) {
-                const imurl = arr[i].poster_path;
-                const p = "https://image.tmdb.org/t/p/original" + imurl;
-                console.log(p);
+   
 
-                row.push(
-                    <View style={styles.card}>
-                        <View style={{ height: '100%', width: '100%' }}>
-                            <Image
-                                //source={imurl}
-
-                                source={{ uri: p }}
-
-                                style={styles.img}
-
-                            />
-                        </View>
-                    </View>
-                );
-            }
-        }
-
-
-        return row;
-    }
-
-    const getlist = (count) => {
-        let row = [];
-        for (let i = 0; i < count; i++) {
-            row.push(
-                <View style={styles.card}>
-                    <View style={{ height: '96%', width: '100%' }}>
-                        <Image
-                            //source={imurl}
-
-                            source={{ uri: imageUrl }}
-
-                            style={styles.img}
-
-                        />
-                    </View>
-                </View>
-            );
-        }
-        return row;
-    }
     return (
 
         <ScrollView>
             <View style={styles.container}>
 
-                <View style={styles.line}>
-                    <Text style={styles.heading}>Trending Now</Text>
-                    <ScrollView horizontal={true} style={{ flexDirection: "row" }}>
+            <View style={styles.line}>
+                    <Text style={styles.heading}>Top Rated</Text>
+                    <FlatList
+                        horizontal={true}
+                        data={movie}
+                        renderItem={(e) => {
 
-                        {getmovielist(movie)}
+                            const imurl = e.item.poster_path;
+                            const p = "https://image.tmdb.org/t/p/original" + imurl;
+                            if (imurl) {
+                                return <View style={[styles.card, styles.shadowProp]}>
+                                    <TouchableOpacity 
+                                      onPress={()=>{navigation.navigate('Signup');}
+                                     
+                                      }
+                                    >
+                                    <View style={{ height: '100%', width: '100%' }}>
+                                        <Image
+                                            source={{ uri: p }}
 
-                    </ScrollView>
+                                            style={styles.img}
+                                        />
+                                    </View>
+                                    </TouchableOpacity>
+                                   
+                                </View>
+                            }
+                        }}
+                    />
                 </View>
                 <View style={styles.line}>
                     <Text style={styles.heading}>Top Rated</Text>
-                    <ScrollView horizontal={true} style={{ flexDirection: "row" }}>
+                    <FlatList
+                        horizontal={true}
+                        data={toprate}
+                        renderItem={(e) => {
 
-                    {getmovielist(toprate)}
+                            const imurl = e.item.poster_path;
+                            const p = "https://image.tmdb.org/t/p/original" + imurl;
+                            if (imurl) {
+                                return <View style={[styles.card, styles.shadowProp]}>
+                                    <View style={{ height: '100%', width: '100%' }}>
+                                        <Image
+                                            source={{ uri: p }}
 
-                    </ScrollView>
+                                            style={styles.img}
+                                        />
+                                    </View>
+                                </View>
+                            }
+                        }}
+                    />
                 </View>
                 <View style={styles.line}>
                     <Text style={styles.heading}>Upcoming</Text>
-                    <ScrollView horizontal={true} style={{ flexDirection: "row" }}>
-                        {/*upcoming movies */}
-                    {getmovielist(topmovie)}
-                       
-                    </ScrollView>
+                    <FlatList
+                        horizontal={true}
+                        data={topmovie}
+                        renderItem={(e) => {
+
+                            const imurl = e.item.poster_path;
+                            const p = "https://image.tmdb.org/t/p/original" + imurl;
+                            if (imurl) {
+                                return <View style={[styles.card, styles.shadowProp]}>
+                                    <View style={{ height: '100%', width: '100%' }}>
+                                        <Image
+                                            source={{ uri: p }}
+
+                                            style={styles.img}
+                                        />
+                                    </View>
+                                </View>
+                            }
+                        }}
+                    />
                 </View>
+
 
 
             </View>
@@ -166,13 +172,15 @@ const styles = StyleSheet.create(
 
             flex: 1,
             alignItems: 'center',
-             backgroundColor: "#0e1012",
+            backgroundColor: "#0e1012",
             padding: 10,
 
 
         },
         line: {
-            backgroundColor: "#0e1012", margin: 10, width: '100%', height: 250
+            backgroundColor: "#0e1012",
+
+            margin: 10, width: '100%', height: 250
         },
         heading: {
             color: 'white',
@@ -191,7 +199,13 @@ const styles = StyleSheet.create(
             height: '100%',
             width: '100%',
             borderRadius: 5,
-        }
+        },
+        shadowProp: {
+            elevation: 5,
+            shadowColor: 'white',
+            shadowOpacity: 0.03,
+            shadowRadius: 2,
+        },
 
     }
 );
