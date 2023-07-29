@@ -17,7 +17,7 @@ function Homestack() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Home" component={Home} options={{headerShown:false}}/>
-      <Stack.Screen name="Details" component={Detail} />
+      <Stack.Screen name="Details" component={Detail} options={{headerTransparent:true,headerTitle:""}}/>
     </Stack.Navigator>
   )
 }
