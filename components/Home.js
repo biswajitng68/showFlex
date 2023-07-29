@@ -88,7 +88,7 @@ const Home = ({navigation}) => {
                             if (imurl) {
                                 return <View style={[styles.card, styles.shadowProp]}>
                                     <TouchableOpacity 
-                                      onPress={()=>{navigation.navigate('Signup');}
+                                      onPress={()=>{navigation.navigate('Details');}
                                      
                                       }
                                     >
