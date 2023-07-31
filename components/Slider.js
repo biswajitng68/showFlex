@@ -15,10 +15,11 @@ const Slider =()=>{
         <FlatList
          data={[1,1,1,1]}
          renderItem={({item,index})=>{
-         return (<View style={{height:100,width:100}}>
+         return (<View style={{height:height/2,width:width,justifyContent:'center',alignContent:'center'}}>
             
               
-            <View style={{height:90,width:90,backgroundColor:"black"}}></View>
+           
+            <View style={{height:"90%",width:"90%",backgroundColor:"green"}}></View>
             
          </View>);
          }}
