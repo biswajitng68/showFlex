@@ -17,9 +17,8 @@ const Slider =()=>{
          renderItem={({item,index})=>{
          return (<View style={{height:100,width:100}}>
             
-              <View style={{width:90,hieght:90,backgroundColor:'green'}}>
-
-              </View>
+              
+            <View style={{height:90,width:90,backgroundColor:"black"}}></View>
             
          </View>);
          }}
