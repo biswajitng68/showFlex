@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView ,Image} from 'react-native'
+import { View, Text, SafeAreaView, ScrollView ,Image,StyleSheet,FlatList,TouchableOpacity} from 'react-native'
 import React, { useState,useEffect } from 'react'
 
 const Profdetail = ({route,navigation}) => {
@@ -6,7 +6,7 @@ const Profdetail = ({route,navigation}) => {
     console.log(castid);
     const base="https://image.tmdb.org/t/p/original"
     useEffect(() => {
-        // moviedetail();
+        moviedetail();
         prof();
     }, []);
     const [movie,setmovie]=useState([]);
@@ -19,7 +19,7 @@ const Profdetail = ({route,navigation}) => {
 
         console.log(json);
 
-        setmovie(json);
+        setmovie(json.cast);
 
     }
     const prof = async (e) => {
@@ -34,10 +34,47 @@ const Profdetail = ({route,navigation}) => {
 
     }
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor:"#18263d",height:"100%"}}>
         <ScrollView>
             <View>
-                <Image source={{uri:base+profile.profile_path}} style={{width:"100%",height:300}}/>
+                <Image source={{uri:base+profile.profile_path}} style={{width:"100%",height:400}}/>
+            </View>
+            <View style={styles.container}>
+                <Text style={styles.title}>{profile.name}</Text>
+                <Text style={styles.subtitle}>Known for: {profile.known_for_department}  Birth: {profile.birthday}</Text>
+                <Text style={styles.gentext}>
+                    {profile.biography}
+                </Text>
+                <View style={styles.line}>
+                    <Text style={styles.heading}>Works</Text>
+                    <FlatList
+                        horizontal={true}
+                        data={movie}
+                        renderItem={(e) => {
+
+                            const imurl = e.item.poster_path;
+                            const p = "https://image.tmdb.org/t/p/original" + imurl;
+                            if (imurl) {
+                                return <View style={[styles.card, styles.shadowProp]}>
+                                    <TouchableOpacity 
+                                      onPress={()=>{navigation.push('Details',{id:e.item.id});}
+                                     
+                                      }
+                                    >
+                                    <View style={{ height: '100%', width: '100%' }}>
+                                        <Image
+                                            source={{ uri: p }}
+
+                                            style={styles.img}
+                                        />
+                                    </View>
+                                    </TouchableOpacity>
+                                   
+                                </View>
+                            }
+                        }}
+                    />
+                </View>
             </View>
         </ScrollView>
     </SafeAreaView>
@@ -45,3 +82,66 @@ const Profdetail = ({route,navigation}) => {
 }
 
 export default Profdetail
+
+const styles = StyleSheet.create({
+    container:{
+        height:"100%",
+        position: 'relative',
+        bottom: 50,
+        left:0,
+        right:0,
+        borderTopLeftRadius:20,
+        borderTopRightRadius:20,
+        backgroundColor:"#18263d",
+        opacity:0.8
+    },
+    title:{
+        color:"#f5b567",
+        fontSize:20,
+        fontWeight:"600",
+        textAlign:"center"
+      },
+    subtitle:{
+        color:"#f5b567",
+        fontSize:15,
+        fontWeight:"600",
+        textAlign:"center"
+    },
+      gentext:{
+        color:"white",
+        fontSize:14,
+        fontFamily:"sans-serif",
+        fontWeight:"300",
+        padding:20,
+        
+      },
+      line: {
+        backgroundColor: "#18263d",
+    
+        margin: 10, width: '100%', height: 250
+    },
+    heading: {
+        color: 'white',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    card: {
+        backgroundColor: "#092847",
+        width: 150,
+        margin: 10,
+        borderRadius: 5,
+    
+    },
+    img: {
+        objectFit: 'contain',
+        height: '100%',
+        width: '100%',
+        borderRadius: 5,
+    },
+    shadowProp: {
+        elevation: 5,
+        shadowColor: 'white',
+        shadowOpacity: 0.03,
+        shadowRadius: 2,
+    },
+})

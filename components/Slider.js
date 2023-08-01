@@ -68,7 +68,9 @@ function callClearinterval(){
                         }}
                         renderItem={({ item, index }) => {
                             return (<View style={{ height: height / 2, width: width, justifyContent: 'center', alignItems: 'center' }}>
-                                <View style={{ height: "90%", width: "90%", backgroundColor: "green",borderRadius:5 }}></View>
+                                <View style={{ height: "90%", width: "90%", backgroundColor: "green",borderRadius:5 }}>
+                                    <Text>{item}</Text>
+                                </View>
 
                             </View>);
                         }}
