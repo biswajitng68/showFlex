@@ -53,7 +53,7 @@ export default function Detail({route,navigation}) {
         <ScrollView>
             {movie&&<>
             <View style={styles.container}>
-                <Image source={{uri:base+movie.backdrop_path}} style={styles.mainimage}/>
+                <Image source={{uri:base+(movie.backdrop_path?movie.backdrop_path:movie.poster_path)}} style={styles.mainimage}/>
             </View>
             <View style={{alignItems:"center"}}>
             <View style={styles.overlay}>
@@ -93,7 +93,7 @@ export default function Detail({route,navigation}) {
                         <TouchableOpacity 
                         key={cast.cast[i].id}
                         
-                        onPress={(e)=>{console.log(castid);navigation.navigate('profile',{castid:castid});}
+                        onPress={(e)=>{console.log(castid);navigation.push('profile',{castid:castid});}
                        
                         }
                         

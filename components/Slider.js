@@ -16,28 +16,28 @@ let val=false;
 
 function callSetinterval(){
     // call PrintFunction at an interval of 2 seconds
-      console.log(val);
+    //   console.log(val);
                if(val)
                {
-                console.log("Clearing id: "+ interval);
+                // console.log("Clearing id: "+ interval);
                    clearInterval(interval);
                }
 
                let   inter= setInterval(PrintFunction, 5000);
-                console.log("setInterval Id:"+inter);
+                // console.log("setInterval Id:"+inter);
                 setint(inter);
                 //callClearinterval()
             }
 
 function callClearinterval(){
-                console.log("Current id: "+ interval)
+                // console.log("Current id: "+ interval)
                 clearInterval(interval);
             }
  function PrintFunction(){
-    console.log("id "+interval);
+    // console.log("id "+interval);
     setpos((pos+1)%totalIndex);
     index=(index+1)%totalIndex;
-    console.log(index);
+    // console.log(index);
     flatListRef.current.scrollToIndex({animated: true, index: index})
             }          
   useEffect (() => {
