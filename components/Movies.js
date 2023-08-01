@@ -89,11 +89,11 @@ return (
                         const p = "https://image.tmdb.org/t/p/original" + imurl;
                         if (imurl) {
                             return <View style={[styles.card, styles.shadowProp]}>
-                                <TouchableOpacity 
-                                  onPress={()=>{navigation.navigate('Details');}
-                                 
-                                  }
-                                >
+                                 <TouchableOpacity 
+                                      onPress={()=>{navigation.navigate('Details',{id:e.item.id});}
+                                     
+                                      }
+                                    >
                                 <View style={{ height: '100%', width: '100%' }}>
                                     <Image
                                         source={{ uri: p }}
@@ -119,6 +119,11 @@ return (
                         const p = "https://image.tmdb.org/t/p/original" + imurl;
                         if (imurl) {
                             return <View style={[styles.card, styles.shadowProp]}>
+                            <TouchableOpacity 
+                            onPress={()=>{navigation.navigate('Details',{id:e.item.id});}
+                           
+                            }
+                          >
                                 <View style={{ height: '100%', width: '100%' }}>
                                     <Image
                                         source={{ uri: p }}
@@ -126,6 +131,7 @@ return (
                                         style={styles.img}
                                     />
                                 </View>
+                                </TouchableOpacity>
                             </View>
                         }
                     }}
@@ -142,6 +148,11 @@ return (
                         const p = "https://image.tmdb.org/t/p/original" + imurl;
                         if (imurl) {
                             return <View style={[styles.card, styles.shadowProp]}>
+                              <TouchableOpacity 
+                                      onPress={()=>{navigation.navigate('Details',{id:e.item.id});}
+                                     
+                                      }
+                                    >
                                 <View style={{ height: '100%', width: '100%' }}>
                                     <Image
                                         source={{ uri: p }}
@@ -149,6 +160,7 @@ return (
                                         style={styles.img}
                                     />
                                 </View>
+                                </TouchableOpacity>
                             </View>
                         }
                     }}

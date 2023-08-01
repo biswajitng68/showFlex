@@ -23,6 +23,25 @@ function Homestack() {
     </Stack.Navigator>
   )
 }
+function Moviestack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Movies" component={Movies} options={{headerShown:false}}/>
+      <Stack.Screen name="Details" component={Detail} options={{headerTransparent:true,headerTitle:"",headerTintColor:"white"}}/>
+      <Stack.Screen name="profile" component={Profdetail} options={{headerTransparent:true,headerTitle:"",headerTintColor:"white"}}/>
+    </Stack.Navigator>
+  )
+}
+
+function Tvstack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Tv" component={Tv} options={{headerShown:false}}/>
+      <Stack.Screen name="Details" component={Detail} options={{headerTransparent:true,headerTitle:"",headerTintColor:"white"}}/>
+      <Stack.Screen name="profile" component={Profdetail} options={{headerTransparent:true,headerTitle:"",headerTintColor:"white"}}/>
+    </Stack.Navigator>
+  )
+}
 function App() {
   return (
     <NavigationContainer>
@@ -33,13 +52,13 @@ function App() {
             <MaterialCommunityIcons name="home" color={color} size={26} />
           ),
         }}/>
-      <Tab.Screen name="Movies" component={Movies} options={{
+      <Tab.Screen name="Moviescreen" component={Moviestack} options={{
           
           tabBarIcon: ({ color }) => (
             <Icon name="film" color={color} size={26} />
           ),
         }}/>
-      <Tab.Screen name="Tv" component={Tv} options={{
+      <Tab.Screen name="Tvscreen" component={Tvstack} options={{
           tabBarLabel: 'Tv',
           tabBarIcon: ({ color }) => (
             <Icon name="tv" color={color} size={26} />
