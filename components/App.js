@@ -9,6 +9,7 @@ import Tv from './Tv';
 import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 import Detail from './Detail';
+import Profdetail from './Profdetail';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -17,7 +18,8 @@ function Homestack() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Home" component={Home} options={{headerShown:false}}/>
-      <Stack.Screen name="Details" component={Detail} options={{headerTransparent:true,headerTitle:""}}/>
+      <Stack.Screen name="Details" component={Detail} options={{headerTransparent:true,headerTitle:"",headerTintColor:"white"}}/>
+      <Stack.Screen name="profile" component={Profdetail} options={{headerTransparent:true,headerTitle:"",headerTintColor:"white"}}/>
     </Stack.Navigator>
   )
 }

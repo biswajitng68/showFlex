@@ -1,17 +1,22 @@
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View,FlatList,TouchableOpacity } from 'react-native'
 import React,{useEffect,useState} from 'react'
 import { blue300 } from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 
-export default function Detail() {
+export default function Detail({route,navigation}) {
     const base="https://image.tmdb.org/t/p/original"
+    const {id}=route.params
     useEffect(() => {
         moviedetail();
+        castdetail();
+        simdetail();
     }, []);
     const [movie, setmovie] = useState([]);
+    const [cast,setcast]=useState([]);
+    const [similar,setsim]=useState([]);
     const moviedetail = async (e) => {
         // e.preventDefault();
 
-        const response = await fetch("https://api.themoviedb.org/3/movie/5?api_key=03c3bc56330f2651f0f67dced08e0c8d");
+        const response = await fetch("https://api.themoviedb.org/3/movie/"+id+"?api_key=03c3bc56330f2651f0f67dced08e0c8d");
         const json = await response.json()
 
         console.log(json);
@@ -20,8 +25,31 @@ export default function Detail() {
         console.log(movie.poster_path);
 
     }
+    const castdetail = async (e) => {
+      // e.preventDefault();
+
+      const response = await fetch("https://api.themoviedb.org/3/movie/"+id+"/credits?api_key=03c3bc56330f2651f0f67dced08e0c8d");
+      const json = await response.json()
+
+      console.log(json);
+
+      setcast(json);
+
+  }
+
+  const simdetail = async (e) => {
+    // e.preventDefault();
+
+    const response = await fetch("https://api.themoviedb.org/3/movie/"+id+"/similar?api_key=03c3bc56330f2651f0f67dced08e0c8d");
+    const json = await response.json()
+
+    console.log(json);
+
+    setsim(json.results);
+
+}
   return (
-    <SafeAreaView style={{backgroundColor:"black",height:"100%"}}>
+    <SafeAreaView style={{backgroundColor:"#18263d",height:"100%"}}>
         <ScrollView>
             {movie&&<>
             <View style={styles.container}>
@@ -51,9 +79,68 @@ export default function Detail() {
                 }
                 </View>
                 <Text style={styles.gentext}>Overview: {movie.overview}</Text>
+                <Text style={{fontWeight:"900",fontSize:17,margin:5,color:"#a30ee8"}}>Cast</Text>
+                <View style={{flexDirection:"row"}}>
+                {cast.cast&&(()=>{
+                    var castar=[]
+                    let i=0,j=0;
+                    var idarr=[];
+                    while(i<4&&j<cast.cast.length){
+                      if(cast.cast[i].profile_path){
+                        console.log("cst: "+cast.cast[i].id);
+                        let castid=cast.cast[i].id;
+                      castar.push(
+                        <TouchableOpacity 
+                        key={cast.cast[i].id}
+                        
+                        onPress={(e)=>{console.log(castid);navigation.navigate('profile',{castid:castid});}
+                       
+                        }
+                        
+                      >
+                        <View style={{width:68,height:68,backgroundColor:"#28d7fa",borderRadius:50,margin:4}} >
+                          <Image source={{uri:base+cast.cast[i].profile_path}} style={{width:66,height:66,backgroundColor:"white",borderRadius:50}}/>
+                        </View>
+                      </TouchableOpacity>
+                      )
+                    i++;}
+                    j++;
+                    }
+                    return castar;
+                  })()}
+                </View>
             </View>
             </View></>}
-            <View style={{width:100,height:100,backgroundColor:"white"}}></View>
+            <View style={styles.line}>
+                    <Text style={styles.heading}>Similar</Text>
+                    <FlatList
+                        horizontal={true}
+                        data={similar}
+                        renderItem={(e) => {
+
+                            const imurl = e.item.poster_path;
+                            const p = "https://image.tmdb.org/t/p/original" + imurl;
+                            if (imurl) {
+                                return <View style={[styles.card, styles.shadowProp]}>
+                                    <TouchableOpacity 
+                                      onPress={()=>{navigation.push('Details',{id:e.item.id});}
+                                     
+                                      }
+                                    >
+                                    <View style={{ height: '100%', width: '100%' }}>
+                                        <Image
+                                            source={{ uri: p }}
+
+                                            style={styles.img}
+                                        />
+                                    </View>
+                                    </TouchableOpacity>
+                                   
+                                </View>
+                            }
+                        }}
+                    />
+                </View>
         </ScrollView>
     </SafeAreaView>
   )
@@ -61,7 +148,7 @@ export default function Detail() {
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor:"red"
+        backgroundColor:"#544d38"
         
     },
     mainimage:{
@@ -73,25 +160,55 @@ const styles = StyleSheet.create({
     bottom: 30,
     left:0,
     right:0,
-    backgroundColor:"#b5d7f5",
+    backgroundColor:"#140224",
     borderRadius:5,
     width:"90%",
-    padding:5,
+    padding:10,
     elevation:30,
     shadowColor:"white"
      // Adjust this value to control the height of the transparent area
    // Change the last value (0.5) to adjust the opacity
   },
   title:{
-    color:"black",
+    color:"#f5b567",
     fontSize:20,
     fontWeight:"600",
     
   },
   gentext:{
-    color:"black",
-    fontSize:15,
-    fontWeight:"500",
+    color:"white",
+    fontSize:14,
+    fontFamily:"sans-serif",
+    fontWeight:"300",
     padding:5
-  }
+  },
+  line: {
+    backgroundColor: "#18263d",
+
+    margin: 10, width: '100%', height: 250
+},
+heading: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+},
+card: {
+    backgroundColor: "#092847",
+    width: 150,
+    margin: 10,
+    borderRadius: 5,
+
+},
+img: {
+    objectFit: 'contain',
+    height: '100%',
+    width: '100%',
+    borderRadius: 5,
+},
+shadowProp: {
+    elevation: 5,
+    shadowColor: 'white',
+    shadowOpacity: 0.03,
+    shadowRadius: 2,
+},
 })
