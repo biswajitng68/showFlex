@@ -17,6 +17,39 @@ const Home = ({navigation}) => {
 
 //  #########################################################################################################
 
+    const [data, setdata] = useState([1, 2, 3, 4,5,6,7]);
+    const [indexpos,setindex]=useState(0);
+    const[pos,setpos]=useState(0);
+
+const flatListRef = useRef(null)
+let index=0;
+const totalIndex = data.length;
+const [interval,setint]=useState(111);
+let val=false;
+
+
+function callSetinterval(){
+               if(val)
+               {
+                   clearInterval(interval);
+               }
+
+               let   inter= setInterval(PrintFunction, 5000);
+                setint(inter);
+
+            }
+
+function callClearinterval(){
+                //console.log("Current id: "+ interval)
+                clearInterval(interval);
+            }
+ function PrintFunction(){
+    //console.log("id "+interval);
+    setpos((pos+1)%totalIndex);
+    index=(index+1)%totalIndex;
+   // console.log(index);
+    flatListRef.current.scrollToIndex({animated: true, index: index})
+            }  
 
 // #####################################################################################################################
 
@@ -81,7 +114,49 @@ const Home = ({navigation}) => {
 
         <ScrollView>
             <View style={styles.container}>
-         
+            <View style={{height: height / 3}}>                   
+
+<FlatList
+    horizontal
+    pagingEnabled
+    data={data}
+    ref={flatListRef}
+    
+    onScrollEndDrag={(e)=>{
+       
+        val=true;
+        callSetinterval();
+    }}
+    onScroll={(e)=>{setindex(Math.ceil((e.nativeEvent.contentOffset.x)/width));
+    
+    index=Math.ceil((e.nativeEvent.contentOffset.x)/width);
+    }}
+    renderItem={({ item, index }) => {
+      const imurl = item.backdrop_path;
+      const p = "https://image.tmdb.org/t/p/original" + imurl;
+        return (<View style={{ height: height / 3, width: width, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ height: "90%", width: "90%", backgroundColor: "green",borderRadius:5 }}>
+            <Image
+                                            source={{ uri: p }}
+
+                                            style={{objectFit:'contain',height:'100%',width:'100%'}}
+                                        />
+            </View>
+
+        </View>);
+    }}
+/>
+<View style={{ flexDirection: 'row', width: width, justifyContent: 'center', alignItems: 'center' }}>{data.map((item, ind) => {
+ 
+   
+    return (
+        
+        <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: ind==indexpos?'green': 'white', marginLeft: 8 }}>
+          
+        </View>
+    )
+})}</View>
+</View>
 
             <View style={styles.line}>
                     <Text style={styles.heading}>Top Rated</Text>
