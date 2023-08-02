@@ -63,7 +63,7 @@ function callClearinterval(){
         //console.log(json.results);
 
         setmovie(json.results);
-
+        
 
     }
     //  https://image.tmdb.org/t/p/original/cHRitjn1hJgz00jOkF7PRGkn9kY.jpg
@@ -77,7 +77,7 @@ function callClearinterval(){
         //console.log(json.results);
 
         settoprated(json.results);
-        // setdata(json.results);
+        setdata(json.results);
 
 
     }
@@ -133,8 +133,9 @@ function callClearinterval(){
     }}
     renderItem={({ item, index }) => {
       const imurl = item.backdrop_path;
+      console.log(imurl);
       const p = "https://image.tmdb.org/t/p/original" + imurl;
-        return (<View style={{ height: height / 3, width: width, justifyContent: 'center', alignItems: 'center' }}>
+        return (<View style={{ height: height / 3, width: width, justifyContent: 'center', alignItems: 'center' }} key={index}>
             <View style={{ height: "90%", width: "90%", backgroundColor: "green",borderRadius:5 }}>
             <Image
                                             source={{ uri: p }}

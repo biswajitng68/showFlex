@@ -90,7 +90,7 @@ return (
                         if (imurl) {
                             return <View style={[styles.card, styles.shadowProp]}>
                               <TouchableOpacity 
-                            onPress={()=>{navigation.navigate('Details',{id:e.item.id});}
+                            onPress={()=>{navigation.navigate('tvdetail',{id:e.item.id});}
                            
                             }
                           >
@@ -121,7 +121,7 @@ return (
                         if (imurl) {
                             return <View style={[styles.card, styles.shadowProp]}>
                               <TouchableOpacity 
-                            onPress={()=>{navigation.navigate('Details',{id:e.item.id});}
+                            onPress={()=>{navigation.navigate('tvdetail',{id:e.item.id});}
                            
                             }
                           >
@@ -153,7 +153,7 @@ return (
                         if (imurl) {
                             return <View style={[styles.card, styles.shadowProp]}>
                              <TouchableOpacity 
-                            onPress={()=>{navigation.navigate('Details',{id:e.item.id});}
+                            onPress={()=>{navigation.navigate('tvdetail',{id:e.item.id});}
                            
                             }
                           >
