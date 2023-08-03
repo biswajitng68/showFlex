@@ -18,8 +18,10 @@ const Profdetail = ({route,navigation}) => {
         const json = await response.json()
 
         console.log(json);
-
-        setmovie(json.cast);
+        const unique = json.cast.filter((obj, index) => {
+            return index === json.cast.findIndex(o => obj.id === o.id);
+        });
+        setmovie(unique);
 
     }
     const prof = async (e) => {
@@ -54,10 +56,11 @@ const Profdetail = ({route,navigation}) => {
 
                             const imurl = e.item.poster_path;
                             const p = "https://image.tmdb.org/t/p/original" + imurl;
+                            // console.log(e.item.id);
                             if (imurl) {
                                 return <View style={[styles.card, styles.shadowProp]}>
                                     <TouchableOpacity 
-                                      onPress={()=>{navigation.push('Details',{id:e.item.id});}
+                                      onPress={()=>{e.item.media_type=="movie"?navigation.push('Details',{id:e.item.id}):navigation.push('tvdetail',{id:e.item.id});}
                                      
                                       }
                                     >

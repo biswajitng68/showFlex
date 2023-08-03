@@ -2,33 +2,33 @@ import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View,FlatList,Toucha
 import React,{useEffect,useState} from 'react'
 import { blue300 } from 'react-native-paper/lib/typescript/src/styles/themes/v2/colors';
 
-export default function Detail({route,navigation}) {
+export default function Detailtv({route,navigation}) {
     const base="https://image.tmdb.org/t/p/original"
     const {id}=route.params
     useEffect(() => {
-        moviedetail();
+        tvdetail();
         castdetail();
         simdetail();
     }, []);
-    const [movie, setmovie] = useState([]);
+    const [tv, settv] = useState([]);
     const [cast,setcast]=useState([]);
     const [similar,setsim]=useState([]);
-    const moviedetail = async (e) => {
+    const tvdetail = async (e) => {
         // e.preventDefault();
 
-        const response = await fetch("https://api.themoviedb.org/3/movie/"+id+"?api_key=03c3bc56330f2651f0f67dced08e0c8d");
+        const response = await fetch("https://api.themoviedb.org/3/tv/"+id+"?api_key=03c3bc56330f2651f0f67dced08e0c8d");
         const json = await response.json()
 
         console.log(json);
 
-        setmovie(json);
-        console.log(movie.poster_path);
+        settv(json);
+        console.log(tv.poster_path);
 
     }
     const castdetail = async (e) => {
       // e.preventDefault();
 
-      const response = await fetch("https://api.themoviedb.org/3/movie/"+id+"/credits?api_key=03c3bc56330f2651f0f67dced08e0c8d");
+      const response = await fetch("https://api.themoviedb.org/3/tv/"+id+"/credits?api_key=03c3bc56330f2651f0f67dced08e0c8d");
       const json = await response.json()
 
       console.log(json);
@@ -40,7 +40,7 @@ export default function Detail({route,navigation}) {
   const simdetail = async (e) => {
     // e.preventDefault();
 
-    const response = await fetch("https://api.themoviedb.org/3/movie/"+id+"/similar?api_key=03c3bc56330f2651f0f67dced08e0c8d");
+    const response = await fetch("https://api.themoviedb.org/3/tv/"+id+"/similar?api_key=03c3bc56330f2651f0f67dced08e0c8d");
     const json = await response.json()
 
     console.log(json);
@@ -51,26 +51,29 @@ export default function Detail({route,navigation}) {
   return (
     <SafeAreaView style={{backgroundColor:"#18263d",height:"100%"}}>
         <ScrollView>
-            {movie&&<>
+            {tv&&<>
             <View style={styles.container}>
-                <Image source={{uri:base+(movie.backdrop_path?movie.backdrop_path:movie.poster_path)}} style={styles.mainimage}/>
+                <Image source={{uri:base+(tv.backdrop_path?tv.backdrop_path:tv.poster_path)}} style={styles.mainimage}/>
             </View>
             <View style={{alignItems:"center"}}>
             <View style={styles.overlay}>
-                <Text style={styles.title}>{movie.title}</Text>
+                <Text style={styles.title}>{tv.name}</Text>
                 <View style={{flexDirection:"row"}}>
-                <Text style={styles.gentext}>{movie.status}</Text>
-                <Text style={styles.gentext}>{movie.runtime} min</Text>
+                <Text style={styles.gentext}>{tv.status}</Text>
+                </View>
+                <View style={{flexDirection:"row"}}>
+                <Text style={styles.gentext}>Total Season: {tv.number_of_seasons}</Text>
+                <Text style={styles.gentext}>Total episodes: {tv.number_of_episodes}</Text>
                 </View>
                 
                 <View style={{flexDirection:"row"}}>
-                {movie.genres&&
+                {tv.genres&&
                   (()=>{
                     var genre=[]
-                    for(let i=0;i<movie.genres.length;i++){
+                    for(let i=0;i<tv.genres.length;i++){
                       genre.push(
                         
-                        <Text style={styles.gentext} key={i}>{movie.genres[i].name}</Text>
+                        <Text style={styles.gentext} key={i}>{tv.genres[i].name}</Text>
                       
                       )
                     }
@@ -78,7 +81,7 @@ export default function Detail({route,navigation}) {
                   })()
                 }
                 </View>
-                <Text style={styles.gentext}>Overview: {movie.overview}</Text>
+                <Text style={styles.gentext}>Overview: {tv.overview}</Text>
                 <Text style={{fontWeight:"900",fontSize:17,margin:5,color:"#a30ee8"}}>Cast</Text>
                 <View style={{flexDirection:"row"}}>
                 {cast.cast&&(()=>{
@@ -123,7 +126,7 @@ export default function Detail({route,navigation}) {
                             if (imurl) {
                                 return <View style={[styles.card, styles.shadowProp]}>
                                     <TouchableOpacity 
-                                      onPress={()=>{navigation.push('Details',{id:e.item.id});}
+                                      onPress={()=>{navigation.push('tvdetail',{id:e.item.id});}
                                      
                                       }
                                     >

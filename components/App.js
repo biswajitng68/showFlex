@@ -3,6 +3,7 @@ import React from 'react'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './Home';
 import Movies from './Movies';
 import Tv from './Tv';
@@ -11,8 +12,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Detail from './Detail';
 import Profdetail from './Profdetail';
 import Search from './Search';
+import Detailtv from './Detailtv';
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 function Homestack() {
@@ -21,6 +23,7 @@ function Homestack() {
       <Stack.Screen name="Home" component={Home} options={{headerShown:false}}/>
       <Stack.Screen name="Details" component={Detail} options={{headerTransparent:true,headerTitle:"",headerTintColor:"white"}}/>
       <Stack.Screen name="profile" component={Profdetail} options={{headerTransparent:true,headerTitle:"",headerTintColor:"white"}}/>
+      <Stack.Screen name="tvdetail" component={Detailtv} options={{headerTransparent:true,headerTitle:"",headerTintColor:"white"}}/>
     </Stack.Navigator>
   )
 }
@@ -30,6 +33,7 @@ function Moviestack() {
       <Stack.Screen name="Movies" component={Movies} options={{headerShown:false}}/>
       <Stack.Screen name="Details" component={Detail} options={{headerTransparent:true,headerTitle:"",headerTintColor:"white"}}/>
       <Stack.Screen name="profile" component={Profdetail} options={{headerTransparent:true,headerTitle:"",headerTintColor:"white"}}/>
+      <Stack.Screen name="tvdetail" component={Detailtv} options={{headerTransparent:true,headerTitle:"",headerTintColor:"white"}}/>
     </Stack.Navigator>
   )
 }
@@ -40,17 +44,21 @@ function Tvstack() {
       <Stack.Screen name="Tv" component={Tv} options={{headerShown:false}}/>
       <Stack.Screen name="Details" component={Detail} options={{headerTransparent:true,headerTitle:"",headerTintColor:"white"}}/>
       <Stack.Screen name="profile" component={Profdetail} options={{headerTransparent:true,headerTitle:"",headerTintColor:"white"}}/>
+      <Stack.Screen name="tvdetail" component={Detailtv} options={{headerTransparent:true,headerTitle:"",headerTintColor:"white"}}/>
     </Stack.Navigator>
   )
 }
 function App() {
   return (
     <NavigationContainer>
-    <Tab.Navigator>
+    <Tab.Navigator backBehavior='history' 
+  screenOptions={{tabBarShowLabel:false,headerShown:false,tabBarActiveTintColor:"black",tabBarInactiveTintColor:"white",tabBarStyle:{height:45,backgroundColor:"gold"}}}
+  >
       <Tab.Screen name="Homescreen" component={Homestack} options={{
           tabBarLabel: 'Home',
+          
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
+            <MaterialCommunityIcons name="home" color={color} size={30} />
           ),
         }}/>
         <Tab.Screen name="Search" component={Search} options={{
