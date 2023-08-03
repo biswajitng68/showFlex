@@ -10,6 +10,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 import Detail from './Detail';
 import Profdetail from './Profdetail';
+import Search from './Search';
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -50,6 +51,12 @@ function App() {
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="home" color={color} size={26} />
+          ),
+        }}/>
+        <Tab.Screen name="Search" component={Search} options={{
+          tabBarLabel: 'Search',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="movie-search-outline" color={color} size={26} />
           ),
         }}/>
       <Tab.Screen name="Moviescreen" component={Moviestack} options={{
