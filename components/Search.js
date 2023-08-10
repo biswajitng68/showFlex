@@ -4,11 +4,7 @@ import { Text, View, Image, StyleSheet, TextInput,ScrollView, TouchableOpacity} 
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 const Search=({ navigation })=>{
 
-    useEffect(() => {
-        
-   
-        
-    }, []);
+    
     const [keyw,setkeyw] = useState();
     const [serchlist,setsearch]=useState([]);
     const options = {
@@ -43,10 +39,10 @@ const Search=({ navigation })=>{
         
       };
 
-        const curr = async (e) => {
+        const curr = async (val) => {
             // e.preventDefault();
           
-            const response = await fetch(`https://api.themoviedb.org/3/search/multi?query=${keyw}&include_adult=false&page=1`, options);
+            const response = await fetch(`https://api.themoviedb.org/3/search/multi?query=${val}&include_adult=false&page=1`, options);
             const json = await response.json()
         
             //console.log(json.results);
@@ -62,7 +58,7 @@ const Search=({ navigation })=>{
         <View style={styles.container}>
             <View style={{height:40,width:'100%',backgroundColor:'white',flexDirection:'row',padding:4,borderRadius:20}}>
             <Icon name="search" style={{color:'black',width:'10%',paddingVertical:6,padding:6}} size={20} />
-            <TextInput style={styles.input} value={keyw} placeholder='Search here' onChangeText={(e)=>{setkeyw(e);console.log(e);curr();}}/>  
+            <TextInput style={styles.input} value={keyw} placeholder='Search here' onChangeText={(e)=>{setkeyw(e);console.log(e);curr(e);}}/>  
             </View>
              <ScrollView style={{width:'97%'}} >
              <View style={{backgroundColor:'#14114FFF',paddingHorizontal:"10%",paddingVertical:20}}>
