@@ -1,8 +1,60 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Text, View, Image, StyleSheet, TextInput} from 'react-native';
+import { Text, View, Image, StyleSheet, TextInput,ScrollView, TouchableOpacity} from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome'; 
-const Search=()=>{
+const Search=({ navigation })=>{
+
+    useEffect(() => {
+        
+   
+        
+    }, []);
+    const [keyw,setkeyw] = useState();
+    const [serchlist,setsearch]=useState([]);
+    const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwM2MzYmM1NjMzMGYyNjUxZjBmNjdkY2VkMDhlMGM4ZCIsInN1YiI6IjY0YjgxY2YzZDM5OWU2MDE0ZTVlMGI0YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.HcrmLtkzegVx-Qhs-ISYZ2SRNpUDNJlp_itEN6lk4wg'
+        }
+      };
+      
+      const list=()=>{
+       let rows=[];
+       if(serchlist){
+        for(let i=0;i<serchlist.length;i++)
+        {
+          
+          if(serchlist[i].title)
+          {
+            rows.push(
+                <TouchableOpacity onPress={() => { navigation.navigate('Details', { id: serchlist[i].id }); }}>
+                    <Text style={{color:'white',padding:'5',margin:5}}>{serchlist[i].title} </Text>
+                </TouchableOpacity>
+                
+               );
+          }
+            
+           
+          
+        }
+        return rows;
+       }
+        
+      };
+
+        const curr = async (e) => {
+            // e.preventDefault();
+          
+            const response = await fetch(`https://api.themoviedb.org/3/search/multi?query=${keyw}&include_adult=false&page=1`, options);
+            const json = await response.json()
+        
+            //console.log(json.results);
+        
+             setsearch(json.results);
+        
+        
+        }
 
 
     return(
@@ -10,14 +62,17 @@ const Search=()=>{
         <View style={styles.container}>
             <View style={{height:40,width:'100%',backgroundColor:'white',flexDirection:'row',padding:4,borderRadius:20}}>
             <Icon name="search" style={{color:'black',width:'10%',paddingVertical:6,padding:6}} size={20} />
-            <TextInput style={styles.input}  placeholder='Search here'/>  
+            <TextInput style={styles.input} value={keyw} placeholder='Search here' onChangeText={(e)=>{setkeyw(e);console.log(e);curr();}}/>  
             </View>
-
-            <View style={{height:"50%",width:'97%',backgroundColor:'#14114FFF',paddingHorizontal:"10%",paddingVertical:20}}>
-             <Text style={{color:'white',padding:'5',margin:5}}>Lorem ipsum dolor sit,amet consec </Text>
-             <Text style={{color:'white',padding:'5',margin:5}}>Exercitationem incidunt reiciendis</Text>
-             <Text style={{color:'white',padding:'5',margin:5}}>minima assumenda in minus aperiam </Text>
+             <ScrollView style={{width:'97%'}} >
+             <View style={{backgroundColor:'#14114FFF',paddingHorizontal:"10%",paddingVertical:20}}>
+                {
+                    list()
+                }
+             
             </View>
+             </ScrollView>
+            
             
 
         </View>

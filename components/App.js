@@ -48,6 +48,16 @@ function Tvstack() {
     </Stack.Navigator>
   )
 }
+function Searchstack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Search" component={Search} options={{headerShown:false}}/>
+      <Stack.Screen name="Details" component={Detail} options={{headerTransparent:true,headerTitle:"",headerTintColor:"white"}}/>
+      <Stack.Screen name="profile" component={Profdetail} options={{headerTransparent:true,headerTitle:"",headerTintColor:"white"}}/>
+      <Stack.Screen name="tvdetail" component={Detailtv} options={{headerTransparent:true,headerTitle:"",headerTintColor:"white"}}/>
+    </Stack.Navigator>
+  )
+}
 function App() {
   return (
     <NavigationContainer>
@@ -61,7 +71,7 @@ function App() {
             <MaterialCommunityIcons name="home" color={color} size={30} />
           ),
         }}/>
-        <Tab.Screen name="Search" component={Search} options={{
+        <Tab.Screen name="Searchscreen" component={Searchstack} options={{
           tabBarLabel: 'Search',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="movie-search-outline" color={color} size={26} />

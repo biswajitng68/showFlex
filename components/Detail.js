@@ -22,7 +22,7 @@ export default function Detail({route,navigation}) {
         console.log(json);
 
         setmovie(json);
-        console.log(movie.poster_path);
+       // console.log(movie.poster_path);
 
     }
     const castdetail = async (e) => {
@@ -31,7 +31,7 @@ export default function Detail({route,navigation}) {
       const response = await fetch("https://api.themoviedb.org/3/movie/"+id+"/credits?api_key=03c3bc56330f2651f0f67dced08e0c8d");
       const json = await response.json()
 
-      console.log(json);
+      //console.log(json);
 
       setcast(json);
 
