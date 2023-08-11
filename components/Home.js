@@ -155,7 +155,7 @@ const Home = ({ navigation }) => {
                         renderItem={({ item, index }) => {
                             const imurl = item.backdrop_path;
                             const p = "https://image.tmdb.org/t/p/original" + imurl;
-                            return (<View style={{ height: height / 3 - 20, width: width, justifyContent: 'center', alignItems: 'center', backgroundColor: "#18263d",padding:10 }}>
+                            return (<View style={{ height: height / 3 - 20, width: width, justifyContent: 'center', alignItems: 'center', backgroundColor: "#18263d",padding:10 }} key={index}>
                                 <View style={{ height: "98%", width: "98%", backgroundColor: "green", borderRadius: 5,padding:2,margin:10 }}>
                                     <Image
                                         source={{ uri: p }}
@@ -172,7 +172,7 @@ const Home = ({ navigation }) => {
 
                         return (
 
-                            <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: ind == indexpos ? 'green' : 'white', marginLeft: 8 }}>
+                            <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: ind == indexpos ? 'green' : 'white', marginLeft: 8 }} key={ind}>
 
                             </View>
                         )
@@ -180,7 +180,7 @@ const Home = ({ navigation }) => {
                 </View>
 
                 <View style={styles.line}>
-                    <Text style={styles.heading}>Top Rated</Text>
+                    <Text style={styles.heading}>Trending</Text>
                     <FlatList
                         horizontal={true}
                         data={movie}
@@ -189,7 +189,7 @@ const Home = ({ navigation }) => {
                             const imurl = e.item.poster_path;
                             const p = "https://image.tmdb.org/t/p/original" + imurl;
                             if (imurl) {
-                                return <View style={[styles.card, styles.shadowProp]}>
+                                return <View style={[styles.card, styles.shadowProp]} key={e.item.id}>
                                     <TouchableOpacity
                                         onPress={() => { navigation.navigate('Details', { id: e.item.id }); }
 
@@ -219,7 +219,7 @@ const Home = ({ navigation }) => {
                             const imurl = e.item.poster_path;
                             const p = "https://image.tmdb.org/t/p/original" + imurl;
                             if (imurl) {
-                                return <View style={[styles.card, styles.shadowProp]}>
+                                return <View style={[styles.card, styles.shadowProp]} key={e.item.id}>
                                     <TouchableOpacity
                                         onPress={() => { navigation.navigate('Details', { id: e.item.id }); }
 
@@ -248,7 +248,7 @@ const Home = ({ navigation }) => {
                             const imurl = e.item.poster_path;
                             const p = "https://image.tmdb.org/t/p/original" + imurl;
                             if (imurl) {
-                                return <View style={[styles.card, styles.shadowProp]}>
+                                return <View style={[styles.card, styles.shadowProp]} key={e.item.id}>
                                     <TouchableOpacity
                                         onPress={() => { navigation.navigate('Details', { id: e.item.id }); }
 

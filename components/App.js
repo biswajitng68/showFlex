@@ -52,7 +52,7 @@ function App() {
   return (
     <NavigationContainer>
     <Tab.Navigator backBehavior='history' 
-  screenOptions={{tabBarShowLabel:false,headerShown:false,tabBarActiveTintColor:"black",tabBarInactiveTintColor:"white",tabBarStyle:{height:45,backgroundColor:"gold"}}}
+  screenOptions={{tabBarShowLabel:false,headerShown:false,tabBarActiveTintColor:"black",tabBarInactiveTintColor:"white",tabBarStyle:{height:45,backgroundColor:"#05c9fa",opacity:0.8}}}
   >
       <Tab.Screen name="Homescreen" component={Homestack} options={{
           tabBarLabel: 'Home',
