@@ -29,6 +29,7 @@ const Search=({ navigation })=>{
                 </TouchableOpacity>
                 
                );
+               
           }
             
            
@@ -65,7 +66,6 @@ const Search=({ navigation })=>{
                 {
                     list()
                 }
-             
             </View>
              </ScrollView>
             
@@ -103,9 +103,7 @@ const styles = StyleSheet.create(
             
 
             
-        },
-
-        
+        }
     }
 );
 
